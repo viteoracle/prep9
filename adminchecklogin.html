@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login Logs</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <h1>Login Logs</h1>
+  
+  <div id="logs"></div>
+
+  <script>
+    var adminPassword = prompt("Enter Admin Password:");
+
+    if (adminPassword === "admin123") {  // Replace with a secure password system
+      var userLogs = JSON.parse(localStorage.getItem("userLogs")) || [];
+      var logTable = "<table><tr><th>Email</th><th>Login Time</th></tr>";
+
+      userLogs.forEach(log => {
+        logTable += `<tr><td>${log.email}</td><td>${log.loginTime}</td></tr>`;
+      });
+
+      logTable += "</table>";
+      document.getElementById("logs").innerHTML = logTable;
+    } else {
+      alert("Incorrect password. Access denied.");
+      window.location.href = "admin.html";  // Redirect to admin page if wrong password
+    }
+  </script>
+</body>
+</html>

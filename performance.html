@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Performance - PrepMaster</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f6f9;
+      padding: 40px;
+    }
+    .performance-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .performance-container h2 {
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .performance-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .performance-stats div {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      width: 30%;
+    }
+    .performance-stats div h3 {
+      font-size: 24px;
+      color: orange;
+    }
+    .performance-stats div p {
+      font-size: 16px;
+      color: #555;
+    }
+    .progress-container {
+      margin-top: 30px;
+    }
+    .progress-bar {
+      width: 100%;
+      background-color: #f0f0f0;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 20px;
+      background-color: orange;
+      width: 70%; /* Example percentage */
+      border-radius: 20px;
+    }
+    .percentage-text {
+      text-align: right;
+      margin-top: 5px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="performance-container">
+    <h2>User Performance Overview</h2>
+
+    <!-- Performance Stats -->
+    <div class="performance-stats">
+      <div>
+        <h3>70%</h3>
+        <p>Overall Performance</p>
+      </div>
+      <div>
+        <h3>85%</h3>
+        <p>Assignment Completion</p>
+      </div>
+      <div>
+        <h3>90%</h3>
+        <p>Test Scores</p>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <h3>Progress:</h3>
+      <div class="progress-bar">
+        <div class="progress-bar-inner" style="width: 70%;"></div>
+      </div>
+      <p class="percentage-text">70% Complete</p>
+    </div>
+  </div>
+</body>
+</html>

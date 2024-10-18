@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutterwave Payment</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .pay-btn {
+            padding: 15px 25px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .pay-btn:hover {
+            background-color: #ff7f00;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto; 
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%; 
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .close-btn {
+            color: red;
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: darkred;
+        }
+
+        .pay-option-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pay-option-btn:hover {
+            background-color: #ff7f00;
+        }
+
+        @media screen and (max-width: 600px) {
+            .modal-content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Make a Payment</h2>
+        <button id="openModalBtn" class="pay-btn">Proceed to Payment</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Select Payment Option</h2>
+            <button class="pay-option-btn" id="payWithCard">Pay with Card</button>
+            <button class="pay-option-btn" id="payWithBankTransfer">Pay with Bank Transfer</button>
+            <button class="pay-option-btn" id="payWithMobileMoney">Pay with Mobile Money</button>
+        </div>
+    </div>
+
+    <!-- Flutterwave SDK -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+    <script>
+        // Modal controls
+        const modal = document.getElementById('paymentModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.querySelector('.close-btn');
+
+        // Open the modal when the button is clicked
+        openModalBtn.addEventListener('click', function() {
+            modal.style.display = "block";
+        });
+
+        // Close the modal when the close button (X) is clicked
+        closeModalBtn.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+
+        // Close the modal when clicking outside the modal content
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Flutterwave payment integration
+        function makePayment(paymentOption) {
+            FlutterwaveCheckout({
+                public_key: "FLWPUBK_TEST-ba607654a961828808771951b8ad8aae-X", // Replace with your actual public key
+                tx_ref: "hooli-tx-1920bbtytty",
+                amount: 5000,
+                currency: "NGN",
+                payment_options: paymentOption, // dynamically set based on button clicked
+                customer: {
+                    email: "vitetemile@gmail.com",
+                    phone_number: "08146804482",
+                    name: "Temile",
+                },
+                customizations: {
+                    title: "PrepMaster Payment",
+                    description: "Payment for services",
+                    logo: "https://your-site.com/logo.png", // Replace with your logo URL
+                },
+                callback: function (data) { // triggered after a successful payment
+                    console.log(data);
+                    alert('Payment successful');
+                    modal.style.display = "none"; // Close modal after payment
+                },
+                onclose: function() {
+                    alert('Payment modal closed');
+                }
+            });
+        }
+
+        // Assign click events to the payment buttons
+        document.getElementById('payWithCard').addEventListener('click', function() {
+            makePayment('card');
+        });
+
+        document.getElementById('payWithBankTransfer').addEventListener('click', function() {
+            makePayment('bank_transfer');
+        });
+
+        document.getElementById('payWithMobileMoney').addEventListener('click', function() {
+            makePayment('mobilemoney');
+        });
+    </script>
+
+</body>
+</html>
